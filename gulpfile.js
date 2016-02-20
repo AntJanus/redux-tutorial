@@ -14,7 +14,14 @@ gulp.task('html', function() {
   ;
 });
 
-gulp.task('default', ['scripts', 'html'], function() {
+gulp.task('css', function() {
+  return gulp.src('./src/**/**.css')
+    .pipe(gulp.dest('./build'))
+  ;
+});
+
+gulp.task('default', ['scripts', 'html', 'css'], function() {
   gulp.watch('./src/app/**/**.js', ['scripts']);
   gulp.watch('./src/**/**.html', ['html']);
+  gulp.watch('./src/**/**.css', ['css']);
 });
