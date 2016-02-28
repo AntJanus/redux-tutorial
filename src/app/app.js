@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getTasks, completeTask } from './actions';
+import { fetchTasks, completeTask } from './actions';
 import TaskList from './taskList';
+import Navigation from './nav';
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch(getTasks());
+    dispatch(fetchTasks());
   }
 
   handleCompleteTask(task) {
@@ -27,6 +28,7 @@ class App extends Component {
 
     return (
       <div className="container">
+        <Navigation />
         <section>
           <h3>Habits</h3>
           <TaskList
@@ -54,7 +56,7 @@ function select(state) {
   return {
     habits: state.tasks.filter(task => task.type === 'habit'),
     dailies: state.tasks.filter(task => task.type === 'daily'),
-    todos: state.tasks.filter(task => task.type === 'todo')
+    todos: state.tasks.filter(task => task.type === 'todo' && !task.completed)
   };
 }
 
